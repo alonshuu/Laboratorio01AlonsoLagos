@@ -6,9 +6,8 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        mostrarOpciones();
-        int opcion = validarNumero();
-        ejecutarOpcion(opcion);
+        ejecutarOpcion();
+
     }
 
 
@@ -37,6 +36,9 @@ public class Main {
         return opcionfinal;
 
     }
+
+
+
 
 
     public static void imprimirMatriz(int m[][]){
@@ -88,58 +90,79 @@ public class Main {
 
     // fin de los metodos de operatoria de matriz
 
+
+
+
+
     // inicio de los metodos de menu
 
-
     public static void mostrarOpciones(){
-        System.out.println("-- BIENVENIDO AL SISTEMA DE CREACION DE MATRICES");
-        System.out.println("[1] CREAR MATRIZ ");
-        System.out.println("[2] MOSTRAR FILA");
-        System.out.println("[3] VERIFICAR SI ES MATRIZ CERO");
+        System.out.println("-- BIENVENIDO AL DE MATRICES");
+        System.out.println("[1] MOSTRAR FILA");
+        System.out.println("[2] VERIFICAR SI ES MATRIZ CERO");
+        System.out.println("[3] MOSTRAR TODA LA MATRIZ");
         System.out.println("[4] SALIR");
 
     }
 
-    public static void ejecutarOpcion(int opcion){
+    public static int[][] menuMatriz(){
+        int filas = 0;
+        int cols = 0;
+        while (!validarDimensiones(filas, cols)){
+            System.out.println("Ingresa un numero para tu fila");
+            filas = validarNumero();
+            System.out.println("Ingresa un numero para la columna");
+            cols = validarNumero();
+        }
+        return crearMatriz(filas,cols);
+    }
 
-        int[][] m = new int[0][0];
+    public static void menuFila(int[][] m) {
+        int fila = m.length+1;
+        while(fila > m.length) {
+            System.out.println("Ingresa la fila que quieres motrar");
+            fila = validarNumero();
+        }
+        mostrarFila(m,fila);
+    }
+
+    public static void menuCero(int[][] m) {
+        if (matrizCero(m)) {
+            System.out.println("La matriz es cero");
+        } else {
+            System.out.println("La matriz no es cero");
+        }
+    }
 
 
-        while(opcion != 5) {
-            if (opcion == 1) {
-                int fila = validarNumero();
-                int col = validarNumero();
-                m = crearMatriz(fila, col);
-                llenarMatriz(m);
+    public static void ejecutarOpcion(){
+        int[][] m = menuMatriz();
+        llenarMatriz(m);
+        int opcion = 0;
+        mostrarOpciones();
+        opcion = validarNumero();
+        while(opcion != 4) {
+            if (opcion == 1){
+                menuFila(m);
                 mostrarOpciones();
                 opcion = validarNumero();
             }
             else if (opcion == 2){
-                int fila2 = validarNumero();
-                mostrarFila(m, fila2);
+                menuCero(m);
                 mostrarOpciones();
                 opcion = validarNumero();
             }
-
             else if (opcion == 3){
-                if(matrizCero(m)){
-                    System.out.println("La matriz es matriz cero");
-                } else {
-                    System.out.println("La matriz no es matriz cero.");
-                }
-
-                mostrarOpciones();
-                opcion = validarNumero();
+                imprimirMatriz(m);
             }
-
             else if (opcion == 4){
-                System.out.println("Saliendo del programa...");
-                System.out.println("....");
+                System.out.println("Saliendo del programa....");
+                System.out.println(".....");
                 System.out.println("...");
-                break;
+                System.out.println("..");
+
             }
         }
-
     }
 
 
