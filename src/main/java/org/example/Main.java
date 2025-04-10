@@ -6,6 +6,9 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         validarDimensiones(3,3);
+        int[][] matrix = crearMatriz(3,3);
+        llenarMatriz(matrix);
+        imprimirMatriz(matrix);
 
     }
 
@@ -17,13 +20,33 @@ public class Main {
         }
     }
 
-    int[][] crearMatriz(int filas, int cols){
+    static int[][] crearMatriz(int filas, int cols){
         int[][] matrix = new int[filas][cols];
         return matrix;
     }
 
+    public static void imprimirMatriz(int m[][]){
+        for (int i = 0; i<m.length; i++){
+            for (int j = 0; j <m.length; j++){
+                System.out.println(m[i][j]);
+            }
+        }
+    }
+
+    public static int crearNumero(){
+        Random random = new Random();
+        return random.nextInt(10);
+    }
 
     private static void llenarMatriz(int matrix[][]){
-
+        for (int i = 0; i < matrix.length; i++){
+            for (int j = 0; j<matrix.length; j++){
+                matrix[i][j] = crearNumero();
+            }
+        }
     }
+
+
+
+
 }
